@@ -1,4 +1,4 @@
-package com.example.kelineyt.fragments.loginRegister
+package com.example.kelineyt.fragments.lognRegister
 
 import android.os.Bundle
 import android.util.Log

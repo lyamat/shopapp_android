@@ -1,4 +1,4 @@
-package com.example.kelineyt.fragments.loginRegister
+package com.example.kelineyt.fragments.lognRegister
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ class AccountOptionsFragment: Fragment(R.layout.fragment_account_options) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentAccountOptionsBinding.inflate(inflater)
         return binding.root
     }
@@ -27,8 +27,10 @@ class AccountOptionsFragment: Fragment(R.layout.fragment_account_options) {
         binding.buttonLoginAccountOptions.setOnClickListener {
             findNavController().navigate(R.id.action_accountOptionsFragment_to_loginFragment)
         }
+
         binding.buttonRegisterAccountOptions.setOnClickListener {
             findNavController().navigate(R.id.action_accountOptionsFragment_to_registerFragment)
         }
     }
+
 }

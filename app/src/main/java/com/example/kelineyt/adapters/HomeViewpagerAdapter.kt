@@ -1,6 +1,6 @@
 package com.example.kelineyt.adapters
 
-import android.app.Application.ActivityLifecycleCallbacks
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -10,7 +10,8 @@ class HomeViewpagerAdapter(
     private val fragments: List<Fragment>,
     fm: FragmentManager,
     lifecycle: Lifecycle
-    ): FragmentStateAdapter(fm, lifecycle) {
+):FragmentStateAdapter(fm,lifecycle) {
+
     override fun getItemCount(): Int {
         return fragments.size
     }
@@ -18,5 +19,4 @@ class HomeViewpagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }
-
 }

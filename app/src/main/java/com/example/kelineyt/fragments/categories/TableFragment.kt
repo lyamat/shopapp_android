@@ -1,4 +1,6 @@
 package com.example.kelineyt.fragments.categories
 
-class TableFragment : BaseCategoryFragment() {
+import androidx.fragment.app.Fragment
+
+class TableFragment: BaseCategoryFragment() {
 }

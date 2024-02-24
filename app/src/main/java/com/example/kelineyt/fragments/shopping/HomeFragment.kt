@@ -1,6 +1,7 @@
 package com.example.kelineyt.fragments.shopping
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,16 +9,10 @@ import androidx.fragment.app.Fragment
 import com.example.kelineyt.R
 import com.example.kelineyt.adapters.HomeViewpagerAdapter
 import com.example.kelineyt.databinding.FragmentHomeBinding
-import com.example.kelineyt.fragments.categories.AccessoryFragment
-import com.example.kelineyt.fragments.categories.ChairFragment
-import com.example.kelineyt.fragments.categories.CupboardFragment
-import com.example.kelineyt.fragments.categories.FurnitureFragment
-import com.example.kelineyt.fragments.categories.MainCategoryFragment
-import com.example.kelineyt.fragments.categories.TableFragment
+import com.example.kelineyt.fragments.categories.*
 import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeFragment: Fragment(R.layout.fragment_home) {
-
+class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -32,7 +27,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoriesFragments = arrayListOf<Fragment>(
+        val categoriesFragments = arrayListOf(
             MainCategoryFragment(),
             ChairFragment(),
             CupboardFragment(),
@@ -41,7 +36,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             FurnitureFragment()
         )
 
-        val viewPager2Adapter = HomeViewpagerAdapter(categoriesFragments,childFragmentManager, lifecycle)
+        binding.viewpagerHome.isUserInputEnabled = false
+
+        val viewPager2Adapter =
+            HomeViewpagerAdapter(categoriesFragments, childFragmentManager, lifecycle)
         binding.viewpagerHome.adapter = viewPager2Adapter
         TabLayoutMediator(binding.tabLayout, binding.viewpagerHome) { tab, position ->
             when (position) {

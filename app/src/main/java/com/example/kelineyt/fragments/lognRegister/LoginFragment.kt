@@ -1,4 +1,4 @@
-package com.example.kelineyt.fragments.loginRegister
+package com.example.kelineyt.fragments.lognRegister
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,16 +13,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.kelineyt.R
 import com.example.kelineyt.activities.ShoppingActivity
 import com.example.kelineyt.databinding.FragmentLoginBinding
+import com.example.kelineyt.databinding.ResetPassowrdDialogBinding
 import com.example.kelineyt.dialog.setupBottomSheetDialog
 import com.example.kelineyt.util.Resource
 import com.example.kelineyt.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-
-private val TAG = "LoginFragment"
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class LoginFragment: Fragment(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
 
@@ -38,23 +38,23 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvDontHaveAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
         binding.apply {
-            buttonLoginLogin.setOnClickListener{
+            buttonLoginLogin.setOnClickListener {
                 val email = edEmailLogin.text.toString().trim()
                 val password = edPasswordLogin.text.toString()
-
                 viewModel.login(email, password)
-            }
-            tvDontHaveAccount.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-            }
-            tvForgotPasswordLogin.setOnClickListener {
-                setupBottomSheetDialog { email ->
-                    viewModel.resetPassword(email)
-                }
             }
         }
 
+        binding.tvForgotPasswordLogin.setOnClickListener {
+            setupBottomSheetDialog { email ->
+                viewModel.resetPassword(email)
+            }
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.resetPassword.collect{
@@ -75,19 +75,19 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
 
         lifecycleScope.launchWhenStarted {
             viewModel.login.collect {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
                         binding.buttonLoginLogin.startAnimation()
                     }
                     is Resource.Success -> {
                         binding.buttonLoginLogin.revertAnimation()
-                        Intent(requireActivity(), ShoppingActivity::class.java).also {intent ->
+                        Intent(requireActivity(), ShoppingActivity::class.java).also { intent ->
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
                         }
                     }
                     is Resource.Error -> {
-                        Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                         binding.buttonLoginLogin.revertAnimation()
                     }
                     else -> Unit
