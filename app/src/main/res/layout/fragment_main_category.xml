@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollMainCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:id="@+id/nestedScrollMainCategory">
+        tools:layout_editor_absoluteX="-65dp"
+        tools:layout_editor_absoluteY="-73dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -19,27 +23,33 @@
                 android:id="@+id/mainCategoryProgressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:indeterminateTint="@color/g_gray700"
                 android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:indeterminateTint="@color/g_gray700" />
-
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSpecialProducts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
+            <ProgressBar
+                android:id="@+id/specialProductsProgressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/g_gray700"
+                android:visibility="visible"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBestDeals"
+                app:layout_constraintStart_toEndOf="@+id/tvBestDeals"
+                app:layout_constraintTop_toTopOf="@+id/tvBestDeals" />
 
 
             <TextView
@@ -53,8 +63,18 @@
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvSpecialProducts"/>
+                app:layout_constraintTop_toBottomOf="@id/rvSpecialProducts" />
 
+            <ProgressBar
+                android:id="@+id/bestDealsProgressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/g_gray700"
+                android:visibility="gone"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBestDeals"
+                app:layout_constraintStart_toEndOf="@+id/tvBestDeals"
+                app:layout_constraintTop_toTopOf="@+id/tvBestDeals" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -62,9 +82,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@id/rvSpecialProducts"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvBestDeals"/>
+                app:layout_constraintStart_toStartOf="@id/rvSpecialProducts"
+                app:layout_constraintTop_toBottomOf="@id/tvBestDeals" />
 
 
             <TextView
@@ -77,7 +97,7 @@
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="@id/rvSpecialProducts"
-                app:layout_constraintTop_toBottomOf="@id/rvBestDealsProducts"/>
+                app:layout_constraintTop_toBottomOf="@id/rvBestDealsProducts" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -85,26 +105,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvBestProducts"
                 android:layout_marginEnd="15dp"
                 android:overScrollMode="never"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBestProducts" />
 
             <ProgressBar
                 android:id="@+id/bestProductsProgressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="5dp"
-                android:indeterminateTint="@color/g_gray700" />
+                android:indeterminateTint="@color/g_gray700"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.core.widget.NestedScrollView>

@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kelineyt.R
 import com.example.kelineyt.adapters.BestDealsAdapter
 import com.example.kelineyt.adapters.BestProductsAdapter
@@ -52,14 +53,14 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
             viewModel.specialProducts.collectLatest {
                 when (it) {
                     is Resource.Loading -> {
-                        showLoading()
+                        binding.specialProductsProgressbar.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
                         specialProductsAdapter.differ.submitList(it.data)
-                        hideLoading()
+                        binding.specialProductsProgressbar.visibility = View.GONE
                     }
                     is Resource.Error -> {
-                        hideLoading()
+                        binding.specialProductsProgressbar.visibility = View.GONE
                         Log.e(TAG, it.message.toString())
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
@@ -72,14 +73,14 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
             viewModel.bestDealsProducts.collectLatest {
                 when (it) {
                     is Resource.Loading -> {
-                        showLoading()
+                        binding.bestDealsProgressbar.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
                         bestDealsAdapter.differ.submitList(it.data)
-                        hideLoading()
+                        binding.bestDealsProgressbar.visibility = View.GONE
                     }
                     is Resource.Error -> {
-                        hideLoading()
+                        binding.bestDealsProgressbar.visibility = View.GONE
                         Log.e(TAG, it.message.toString())
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
@@ -108,11 +109,31 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
             }
         }
 
+        binding.rvSpecialProducts.addOnScrollListener(object :RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollHorizontally(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
+                    viewModel.fetchSpecialProducts()
+                }
+            }
+        })
+
+        binding.rvBestDealsProducts.addOnScrollListener(object :RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollHorizontally(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
+                    viewModel.fetchBestDeals()
+                }
+            }
+        })
+
         binding.nestedScrollMainCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener{ v,_,scrollY,_,_ ->
             if(v.getChildAt(0).bottom <= v.height + scrollY) {
                 viewModel.fetchBestProducts()
             }
         })
+
+
     }
 
 
