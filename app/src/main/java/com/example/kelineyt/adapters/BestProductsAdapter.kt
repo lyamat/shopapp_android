@@ -19,8 +19,12 @@ class BestProductsAdapter : RecyclerView.Adapter<BestProductsAdapter.BestProduct
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
-                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
-                tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+
+                product.offerPercentage?.let {
+                    val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                    tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+                }
+
                 tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 if (product.offerPercentage == null)
                     tvNewPrice.visibility = View.INVISIBLE

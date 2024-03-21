@@ -41,10 +41,14 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         setupCartRv()
 
+        binding.imageCloseCart.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         lifecycleScope.launchWhenStarted {
             viewModel.productsPrice.collectLatest { price ->
                 price?.let {
-                    binding.tvTotalPrice.text = "$ $price"
+                    binding.tvTotalPrice.text = "$ ${String.format("%.2f", price)}"
                 }
             }
         }

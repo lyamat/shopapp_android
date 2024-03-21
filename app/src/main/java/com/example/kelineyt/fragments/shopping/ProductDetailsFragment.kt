@@ -18,6 +18,7 @@ import com.example.kelineyt.adapters.SizesAdapter
 import com.example.kelineyt.adapters.ViewPager2Images
 import com.example.kelineyt.data.CartProduct
 import com.example.kelineyt.databinding.FragmentProductDetailsBinding
+import com.example.kelineyt.helper.getProductPrice
 import com.example.kelineyt.util.Resource
 import com.example.kelineyt.util.hideBottomNavigationView
 import com.example.kelineyt.viewmodel.DetailsViewModel
@@ -95,7 +96,11 @@ class ProductDetailsFragment : Fragment() {
 
         binding.apply {
             tvProductName.text = product.name
-            tvProductPrice.text = "$ ${product.price}"
+
+            product.offerPercentage?.let {
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                tvProductPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+            }
             tvProductDescription.text = product.description
 
             if (product.colors.isNullOrEmpty()) {
