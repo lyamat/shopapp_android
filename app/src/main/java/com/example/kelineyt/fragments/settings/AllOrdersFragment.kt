@@ -1,4 +1,4 @@
-package com.example.kelineyt.fragments.shopping
+package com.example.kelineyt.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -61,7 +61,7 @@ class AllOrdersFragment : Fragment() {
         }
 
         allOrdersAdapter.onClick = {
-            val action = AllOrdersFragmentDirections.actionAllOrdersFragmentToOrderDetailFragment(it)
+            val action = AllOrdersFragmentDirections.actionOrdersFragmentToOrderDetailFragment(it)
             findNavController().navigate(action)
         }
     }

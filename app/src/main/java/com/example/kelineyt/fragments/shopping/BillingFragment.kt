@@ -47,6 +47,7 @@ class BillingFragment : Fragment() {
 
         products = args.products.toList()
         totalPrice = args.totalPrice
+
     }
 
     override fun onCreateView(
@@ -63,6 +64,15 @@ class BillingFragment : Fragment() {
 
         setupBillingProductsRv()
         setupAddressRv()
+
+        if (!args.payment) {
+            binding.apply {
+                buttonPlaceOrder.visibility = View.INVISIBLE
+                totalBoxContainer.visibility = View.INVISIBLE
+                middleLine.visibility = View.INVISIBLE
+                bottomLine.visibility = View.INVISIBLE
+            }
+        }
 
         lifecycleScope.launchWhenStarted {
             billingViewModel.address.collectLatest {
@@ -119,6 +129,10 @@ class BillingFragment : Fragment() {
 
         addressAdapter.onClick = {
             selectedAddress = it
+            if (!args.payment) {
+                val b = Bundle().apply { putParcelable("address", selectedAddress) }
+                findNavController().navigate(R.id.action_billingFragment_to_addressFragment, b)
+            }
         }
 
         binding.buttonPlaceOrder.setOnClickListener {

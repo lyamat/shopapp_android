@@ -1,4 +1,4 @@
-package com.example.kelineyt.fragments.shopping
+package com.example.kelineyt.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

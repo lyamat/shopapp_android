@@ -12,4 +12,5 @@ class LoginRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actitivty_login_register)
     }
+
 }
